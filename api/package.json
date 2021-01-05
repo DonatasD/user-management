@@ -1,7 +1,7 @@
 {
   "name": "api",
   "version": "0.0.1",
-  "description": "",
+  "description": "User management api service",
   "author": "Donatas Daubaras",
   "private": true,
   "license": "UNLICENSED",
