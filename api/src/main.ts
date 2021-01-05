@@ -2,9 +2,11 @@ import { NestApplication, NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 import { Logger } from '@nestjs/common';
+import { ConfigService } from '@nestjs/config';
 
 const bootstrap = async () => {
   const app = await NestFactory.create(AppModule);
+  const configService: ConfigService = app.get(ConfigService);
 
   app.setGlobalPrefix('api');
 
@@ -16,7 +18,7 @@ const bootstrap = async () => {
   const swaggerDocument = SwaggerModule.createDocument(app, swaggerOptions);
   SwaggerModule.setup('swagger', app, swaggerDocument);
 
-  await app.listen(3000);
+  await app.listen(configService.get('PORT'));
 };
 bootstrap()
   .then(() => {
