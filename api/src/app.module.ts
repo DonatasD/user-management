@@ -4,12 +4,14 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
 import databaseConfig from './config/database.config';
 import { HealthModule } from './health/health.module';
 import { UserModule } from './user/user.module';
+import { envFilePath } from './config/env.config';
 
 @Module({
   imports: [
     ConfigModule.forRoot({
       isGlobal: true,
       load: [databaseConfig],
+      envFilePath: envFilePath(),
     }),
     TypeOrmModule.forRootAsync({
       imports: [ConfigModule],

@@ -20,9 +20,11 @@ jobs:
         uses: actions/setup-node@v1
         with:
           node-version: ${{ matrix.node-version }}
+      - name: Install make
+        run: sudo apt install make
       - name: Start required services
         working-directory: ./api
-        run: docker-compose up -d
+        run: make test
       - name: Install
         working-directory: ./api
         run: npm install
