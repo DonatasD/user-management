@@ -1,16 +1,25 @@
-import { Body, Controller, Delete, Get, Param, Post, Put } from '@nestjs/common';
+import { BadRequestException, Body, Controller, Delete, Get, Param, Post, Put, UseInterceptors } from '@nestjs/common';
 import { UserService } from './user.service';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
+import { NotFoundInterceptor } from '../interceptor/not-found/not-found.interceptor';
 
 @Controller('users')
 export class UserController {
   constructor(private readonly userService: UserService) {}
 
   @Post()
-  create(@Body() createUserDto: CreateUserDto) {
-    return this.userService.create(createUserDto);
-  }
+  async create(@Body() createUserDto: CreateUserDto) {
+    try {
+      const result = await this.userService.create(createUserDto);
+      if (!result) {
+        throw new BadRequestException('invalid user');
+      }
+      return result;
+    } catch (e) {
+      throw new Error(e);
+    }
+  };
 
   @Get()
   findAll() {
@@ -18,17 +27,20 @@ export class UserController {
   }
 
   @Get(':id')
+  @UseInterceptors(new NotFoundInterceptor('user not found'))
   findOne(@Param('id') id: string) {
     return this.userService.findOne(id);
   }
 
   @Put(':id')
+  @UseInterceptors(new NotFoundInterceptor('user not found'))
   update(@Param('id') id: string, @Body() updateUserDto: UpdateUserDto) {
     return this.userService.update(id, updateUserDto);
   }
 
   @Delete(':id')
+  @UseInterceptors(new NotFoundInterceptor('user not found'))
   remove(@Param('id') id: string) {
-    return this.userService.remove(id);
+      return this.userService.remove(id);
   }
 }

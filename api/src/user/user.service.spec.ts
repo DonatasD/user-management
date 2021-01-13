@@ -12,7 +12,7 @@ import { getRepositoryToken } from '@nestjs/typeorm';
 import { User } from './entities/user.entity';
 import { Repository } from 'typeorm';
 import { MockType } from '../utils/mock/mock.types';
-import faker from 'faker';
+import * as faker from 'faker';
 
 describe('UserService', () => {
   let service: UserService;

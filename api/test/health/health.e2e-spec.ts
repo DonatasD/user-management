@@ -6,25 +6,32 @@ import { AppModule } from '../../src/app.module';
 describe('Health check (e2e)', () => {
   let app: INestApplication;
 
-  beforeEach(async () => {
+  beforeEach(async (done) => {
     const moduleFixture: TestingModule = await Test.createTestingModule({
       imports: [AppModule],
     }).compile();
 
     app = moduleFixture.createNestApplication();
     await app.init();
+    done();
   });
 
-  it('/health (GET)', () => {
+  afterAll(async (done) => {
+    await app.close();
+    done();
+  });
+
+  it('/health (GET)', (done) => {
     const expected = {
       "status": "ok",
       "info": {},
       "error": {},
       "details": {},
     };
-    return request(app.getHttpServer())
+    request(app.getHttpServer())
       .get('/health')
-      .expect(200)
-      .expect(expected);
+      .expect(expected)
+      .expect(200);
+    done();
   });
 });
