@@ -6,22 +6,16 @@ import { AppModule } from '../../src/app.module';
 describe('Health check (e2e)', () => {
   let app: INestApplication;
 
-  beforeEach(async (done) => {
+  beforeEach(async () => {
     const moduleFixture: TestingModule = await Test.createTestingModule({
       imports: [AppModule],
     }).compile();
 
     app = moduleFixture.createNestApplication();
     await app.init();
-    done();
   });
 
-  afterAll(async (done) => {
-    await app.close();
-    done();
-  });
-
-  it('/health (GET)', (done) => {
+  it('/health (GET)', () => {
     const expected = {
       "status": "ok",
       "info": {},
@@ -32,6 +26,5 @@ describe('Health check (e2e)', () => {
       .get('/health')
       .expect(expected)
       .expect(200);
-    done();
   });
 });
