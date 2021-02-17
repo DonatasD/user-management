@@ -31,17 +31,28 @@ const useStyles = makeStyles((theme: Theme) =>
       width: sidebarWidth,
     },
     drawerHeader: {
+      boxShadow: theme.shadows[4],
+      background: theme.palette.primary.main,
       display: "flex",
       alignItems: "center",
       padding: theme.spacing(0, 1),
       ...theme.mixins.toolbar,
       justifyContent: "flex-end",
     },
+    icon: {
+      color: theme.palette.primary.contrastText,
+    },
   })
 );
 
 const Sidebar: FC<SidebarProps> = ({ open = false, onMenuIconClick }) => {
-  const sidebarLinks = [AppLink.Users, AppLink.Permissions];
+  const sidebarLinks = [
+    AppLink.Home,
+    AppLink.Users,
+    AppLink.Groups,
+    AppLink.Roles,
+    AppLink.Permissions,
+  ];
   const classes = useStyles();
   const history = useHistory();
   return (
@@ -55,7 +66,7 @@ const Sidebar: FC<SidebarProps> = ({ open = false, onMenuIconClick }) => {
       }}
     >
       <div className={classes.drawerHeader}>
-        <IconButton onClick={onMenuIconClick}>
+        <IconButton className={classes.icon} onClick={onMenuIconClick}>
           <ChevronLeftIcon />
         </IconButton>
       </div>

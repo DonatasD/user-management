@@ -4,6 +4,8 @@ export enum AppLink {
   Home = "/",
   Users = "/users",
   Permissions = "/permissions",
+  Groups = "/groups",
+  Roles = "/roles",
 }
 
 export interface AppRoute {

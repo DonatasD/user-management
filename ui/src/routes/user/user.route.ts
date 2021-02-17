@@ -1,5 +1,5 @@
 import { AppLink, AppRoute } from "../../types/types";
-import UserView from "./UserView";
+import UserView from "../../views/user/UserView";
 
 const userRoute: AppRoute = {
   path: AppLink.Users,

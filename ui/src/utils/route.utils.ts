@@ -1,15 +1,26 @@
 import { AppLink } from "../types/types";
-import { People, SvgIconComponent, Lock } from "@material-ui/icons";
+import {
+  SvgIconComponent,
+  Lock,
+  Home,
+  Group,
+  Person,
+} from "@material-ui/icons";
 
 const routeNames: { [key: string]: string } = {
   [AppLink.Home]: "Home",
   [AppLink.Users]: "Users",
   [AppLink.Permissions]: "Permissions",
+  [AppLink.Groups]: "Groups",
+  [AppLink.Roles]: "Roles",
 };
 
 const routeIcons: { [key: string]: SvgIconComponent } = {
-  [AppLink.Users]: People,
+  [AppLink.Home]: Home,
+  [AppLink.Users]: Person,
+  [AppLink.Groups]: Group,
   [AppLink.Permissions]: Lock,
+  [AppLink.Roles]: Lock,
 };
 
 const defaultRouteName = "Home";
