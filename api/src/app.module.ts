@@ -5,6 +5,7 @@ import databaseConfig from './config/database.config';
 import { HealthModule } from './health/health.module';
 import { UserModule } from './user/user.module';
 import { envFilePath } from './config/env.config';
+import { DashboardModule } from './dashboard/dashboard.module';
 
 @Module({
   imports: [
@@ -22,6 +23,7 @@ import { envFilePath } from './config/env.config';
     }),
     HealthModule,
     UserModule,
+    DashboardModule,
   ],
   controllers: [],
   providers: [],
