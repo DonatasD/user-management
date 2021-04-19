@@ -18,9 +18,8 @@ export const currentEnvironment = (): Environment => {
     default:
       return Environment.Workplace;
   }
-}
+};
 
 export const envFilePath = () => {
-    const environment = currentEnvironment();
-    return [`./config/.env.${environment}.local`, `./config/.env.${environment}`, './config/.env'];
+  return ['.env'];
 };
