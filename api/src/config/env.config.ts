@@ -21,5 +21,6 @@ export const currentEnvironment = (): Environment => {
 };
 
 export const envFilePath = () => {
-  return ['.env'];
+  const environment = currentEnvironment();
+  return [`.env.${environment}.local`, `.env.${environment}`, '.env'];
 };

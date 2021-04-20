@@ -1,4 +1,14 @@
-import { BadRequestException, Body, Controller, Delete, Get, Param, Post, Put, UseInterceptors } from '@nestjs/common';
+import {
+  BadRequestException,
+  Body,
+  Controller,
+  Delete,
+  Get,
+  Param,
+  Post,
+  Put,
+  UseInterceptors,
+} from '@nestjs/common';
 import { UserService } from './user.service';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
@@ -10,16 +20,8 @@ export class UserController {
 
   @Post()
   async create(@Body() createUserDto: CreateUserDto) {
-    try {
-      const result = await this.userService.create(createUserDto);
-      if (!result) {
-        throw new BadRequestException('invalid user');
-      }
-      return result;
-    } catch (e) {
-      throw new Error(e);
-    }
-  };
+    return await this.userService.create(createUserDto);
+  }
 
   @Get()
   findAll() {
@@ -41,6 +43,6 @@ export class UserController {
   @Delete(':id')
   @UseInterceptors(new NotFoundInterceptor('user not found'))
   remove(@Param('id') id: string) {
-      return this.userService.remove(id);
+    return this.userService.remove(id);
   }
 }
