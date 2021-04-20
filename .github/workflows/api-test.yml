@@ -6,20 +6,27 @@ on:
     paths:
       - 'api/**'
 
+
 jobs:
   test-api:
     runs-on: ubuntu-latest
     timeout-minutes: 20
     environment:
       name: test
-
+    env:
+      PORT: ${{ secrets.PORT }}
+      DB_HOST: ${{ secrets.DB_HOST }}
+      DB_USERNAME: ${{ secrets.DB_USERNAME }}
+      DB_PASSWORD: ${{ secrets.DB_PASSWORD }}
+      DB_DATABASE: ${{ secrets.DB_USERNAME }}
+      DB_PORT: ${{ secrets.DB_PORT }}
     services:
       postgres:
         image: postgres
         env:
-          POSTGRES_USER: postgres
-          POSTGRES_PASSWORD: postgres
-          POSTGRES_DB: user-manager-test
+          POSTGRES_USER: ${{ env.DB_USERNAME }}
+          POSTGRES_PASSWORD: ${{ env.DB_PASSWORD }}
+          POSTGRES_DB: ${{ env.DB_DATABASE }}
         ports:
           - 5432:5432
         options: --health-cmd pg_isready --health-interval 10s --health-timeout 5s --health-retries 5
@@ -30,6 +37,9 @@ jobs:
 
     steps:
       - uses: actions/checkout@v2
+      - uses: secrethub/actions/env-export@v0.1.0
+        env:
+          SECRETHUB_CREDENTIAL: ${{ secrets.SECRETHUB_CREDENTIAL }}
       - name: Use Node.js ${{ matrix.node-version }}
         uses: actions/setup-node@v1
         with:
