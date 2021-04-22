@@ -1,6 +1,12 @@
 version: "3"
 
 services:
+  api:
+    build: .
+    volumes:
+      - ./.env.docker:/home/node/app/.env
+    ports:
+      - ${PORT}:${PORT}
   db:
     image: postgres
     volumes:
