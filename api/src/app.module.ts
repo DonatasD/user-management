@@ -1,18 +1,18 @@
 import { Module } from '@nestjs/common';
 import { TypeOrmModule, TypeOrmModuleOptions } from '@nestjs/typeorm';
-import { ConfigModule, ConfigService } from '@nestjs/config';
-import databaseConfig from './config/database.config';
+import { ConfigModule, ConfigService, registerAs } from '@nestjs/config';
 import { HealthModule } from './health/health.module';
 import { UserModule } from './user/user.module';
-import { envFilePath } from './config/env.config';
+import { getEnvFilePaths } from './utils/environment';
 import { DashboardModule } from './dashboard/dashboard.module';
+import appConfig from './config/appConfig';
 
 @Module({
   imports: [
     ConfigModule.forRoot({
       isGlobal: true,
-      load: [databaseConfig],
-      envFilePath: envFilePath(),
+      load: [registerAs('db', () => appConfig.db)],
+      envFilePath: getEnvFilePaths(),
     }),
     TypeOrmModule.forRootAsync({
       imports: [ConfigModule],

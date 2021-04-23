@@ -3,6 +3,7 @@ import { AppModule } from './app.module';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 import { Logger } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
+import appConfig from './config/appConfig';
 
 const bootstrap = async () => {
   const app = await NestFactory.create(AppModule);
@@ -13,7 +14,7 @@ const bootstrap = async () => {
   const swaggerOptions = new DocumentBuilder()
     .setTitle('User management')
     .setDescription('Service for managing users and permissions')
-    .setVersion('0.0.1')
+    .setVersion(appConfig.version)
     .build();
   const swaggerDocument = SwaggerModule.createDocument(app, swaggerOptions);
   SwaggerModule.setup('swagger', app, swaggerDocument);
