@@ -75,7 +75,7 @@ describe('UserController', () => {
   describe('update()', () => {
     it('should successfully update user', async () => {
       const expected = mockUserUpdateDto();
-      const id = faker.random.uuid();
+      const id = faker.datatype.uuid();
       const result = await service.update(id, expected);
       expect(service.update).toBeCalled();
       expect(result).toEqual(expect.objectContaining(expected));
@@ -84,7 +84,7 @@ describe('UserController', () => {
 
   describe('remove()', () => {
     it('should successfully delete user', async () => {
-      const id = faker.random.uuid();
+      const id = faker.datatype.uuid();
       await service.remove(id);
       expect(service.remove).toBeCalled();
     });

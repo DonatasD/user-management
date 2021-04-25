@@ -18,17 +18,14 @@ describe('UserController (e2e)', () => {
 
   describe('/users (GET)', () => {
     it('successfully retrieves no users', () => {
-      request(app.getHttpServer())
-        .get('/users')
-        .expect(200)
-        .expect([]);
+      request(app.getHttpServer()).get('/users').expect(200).expect([]);
     });
   });
 
   describe('/users:id (GET)', () => {
     it('fails to find a user', () => {
       request(app.getHttpServer())
-        .get(`/users/${faker.random.uuid()}`)
+        .get(`/users/${faker.datatype.uuidd()}`)
         .expect(404);
     });
   });

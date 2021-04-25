@@ -1,11 +1,12 @@
-import { Column, CreateDateColumn, Entity, Index, PrimaryGeneratedColumn, UpdateDateColumn } from 'typeorm';
+import { Column, Entity, Index, PrimaryGeneratedColumn } from 'typeorm';
 import { IsEmail, IsNotEmpty } from 'class-validator';
 import { Exclude } from 'class-transformer';
+import { BaseEntity } from '../../shared/entity';
 
 @Entity()
-export class User {
-
+export class User extends BaseEntity {
   constructor(user: Partial<User>) {
+    super();
     Object.assign(this, user);
   }
 
@@ -16,15 +17,9 @@ export class User {
   @IsNotEmpty()
   @Column()
   @Index({ unique: true })
-  email: string
+  email: string;
 
   @Column({ select: false })
   @Exclude()
   password: string;
-
-  @CreateDateColumn({type: "timestamp"})
-  createdAt: Date;
-
-  @UpdateDateColumn({type: "timestamp"})
-  updatedAt: Date;
 }

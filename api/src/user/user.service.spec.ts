@@ -21,10 +21,11 @@ describe('UserService', () => {
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
       providers: [
-        UserService, {
+        UserService,
+        {
           provide: getRepositoryToken(User),
           useFactory: userRepositoryMock,
-        }
+        },
       ],
     }).compile();
 
@@ -55,7 +56,7 @@ describe('UserService', () => {
     });
   });
 
-  describe('findOne()',  () => {
+  describe('findOne()', () => {
     it('should successfully return user', async () => {
       const expected = mockUser();
       repository.findOne.mockReturnValue(expected);
@@ -83,7 +84,7 @@ describe('UserService', () => {
   describe('update()', () => {
     it('should successfully update a user', async () => {
       const expected = mockUserUpdateDto();
-      const id = faker.random.uuid();
+      const id = faker.datatype.uuid();
       const result = await repository.update(id, expected);
       expect(repository.update).toBeCalled();
       expect(result).toEqual(expect.objectContaining(expected));
@@ -92,7 +93,7 @@ describe('UserService', () => {
 
   describe('remove()', () => {
     it('should successfully delete user', async () => {
-      const id = faker.random.uuid();
+      const id = faker.datatype.uuid();
       await repository.remove(id);
       expect(repository.remove).toBeCalled();
     });
