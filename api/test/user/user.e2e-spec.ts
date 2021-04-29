@@ -25,7 +25,7 @@ describe('UserController (e2e)', () => {
   describe('/users:id (GET)', () => {
     it('fails to find a user', () => {
       request(app.getHttpServer())
-        .get(`/users/${faker.datatype.uuidd()}`)
+        .get(`/users/${faker.datatype.uuid()}`)
         .expect(404);
     });
   });
