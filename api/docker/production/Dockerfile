@@ -1,4 +1,4 @@
-FROM node:15-alpine AS builder
+FROM node:16-alpine AS builder
 COPY --chown=node:node ./package*.json ./
 RUN npm install && npm cache clean --force --loglevel=error
 COPY ../../tsconfig.json ./
@@ -7,7 +7,7 @@ COPY ../../.env ./
 COPY ../../src ./src/
 RUN npm run build
 
-FROM node:15-alpine
+FROM node:16-alpine
 RUN mkdir /home/node/app/ && chown -R node:node /home/node/app
 WORKDIR /home/node/app
 COPY --chown=node:node --from=builder ../../node_modules ./node_modules
